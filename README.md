@@ -2,13 +2,7 @@
 
 Statusline para [Claude Code](https://code.claude.com) en español, inspirada en la de PAI: tres filas con lo esencial de la sesión y nada más.
 
-```
-TAREA: statusline para claude code │ SKILLS: 2 │ AGENTES: 1
-┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-CONTEXTO: ●●●●●●●●●●●○○○○○○○○○◉○○○○○○○○○○○◉○○○○○○○  27%
-┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-USO: 5H: 21% ↻HOY@15:00 │ SEMANA: 5% ↻MIÉ@13:00 │ Fable 5.1 (high)
-```
+![Statusline de Claude Code](docs/statusline.png)
 
 ## Qué muestra
 
