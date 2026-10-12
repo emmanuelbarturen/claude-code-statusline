@@ -22,6 +22,27 @@ Statusline para [Claude Code](https://code.claude.com) en español, inspirada en
 
 ## Instalación
 
+### Opción 1: pídeselo a Claude Code
+
+Abre Claude Code y pega este prompt:
+
+```text
+Instala esta statusline en mi Claude Code:
+
+1. Verifica que jq esté instalado; si no, instálalo con brew.
+2. Descarga https://raw.githubusercontent.com/emmanuelbarturen/claude-code-statusline/main/statusline.sh
+   en ~/.claude/statusline.sh y dale permiso de ejecución.
+3. Haz una copia de seguridad de ~/.claude/settings.json y añade (sin borrar lo que ya hay):
+   "statusLine": { "type": "command", "command": "~/.claude/statusline.sh" }
+4. Prueba el script con una entrada simulada:
+   echo '{"model":{"display_name":"Opus"},"session_name":"prueba","context_window":{"used_percentage":25}}' | ~/.claude/statusline.sh
+5. Muéstrame el resultado y confirma que settings.json sigue siendo JSON válido.
+```
+
+La statusline aparece al terminar ese turno o en la siguiente sesión.
+
+### Opción 2: manual
+
 ```bash
 git clone https://github.com/emmanuelbarturen/claude-code-statusline.git
 cd claude-code-statusline
