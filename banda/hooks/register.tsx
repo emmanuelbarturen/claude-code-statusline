@@ -95,7 +95,7 @@ export const register: Register = on => {
         {/* La rama no se encoge: ante poco ancho, la que se corta es la ruta. */}
         {actual === null ? null : (
           <Box flexShrink={0}>
-            <Text>{` ⎇ ${actual}`}</Text>
+            <Text>{` rama:${actual}`}</Text>
           </Box>
         )}
       </Box>

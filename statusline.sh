@@ -112,9 +112,19 @@ sep_line() {
 # ---------- skills / agentes de la sesión ----------
 skills=0 agents=0
 if [[ -n "$transcript" && -r "$transcript" ]]; then
-  skills=$(grep -o '"name":"Skill","input":{[^}]*}' "$transcript" 2>/dev/null \
-           | grep -o '"skill":"[^"]*"' | sort -u | wc -l | tr -d ' ')
-  agents=$(grep -o '"subagent_type":"[^"]*"' "$transcript" 2>/dev/null \
+  # Un skill entra por la herramienta Skill o tecleado como /nombre. El tecleado se distingue de un
+  # comando interno (/clear, /model) porque lleva <command-message> antes de <command-name>.
+  # Se queda solo el nombre, sin el prefijo del plugin, para que las dos vías no cuenten doble.
+  skills=$( { grep -o '"name":"Skill","input":{[^}]*}' "$transcript" 2>/dev/null \
+                | grep -o '"skill":"[^"]*"' | cut -d'"' -f4
+              grep -o '</command-message>\\n<command-name>/[^<]*' "$transcript" 2>/dev/null \
+                | sed 's|.*<command-name>/||'
+            } | sed 's/.*://' | sort -u | wc -l | tr -d ' ')
+  # Tipos distintos de subagente; uno lanzado sin tipo cuenta como general-purpose.
+  agents=$(grep -E '"name":"(Agent|Task)","input"' "$transcript" 2>/dev/null \
+           | jq -r 'select(.type == "assistant") | .message.content[]?
+                    | select(.type == "tool_use" and (.name == "Agent" or .name == "Task"))
+                    | .input.subagent_type // "general-purpose"' 2>/dev/null \
            | sort -u | wc -l | tr -d ' ')
 fi
 

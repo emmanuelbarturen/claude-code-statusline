@@ -57,7 +57,7 @@ const ruta = async ($: Motor) => {
 // La rama que la banda dibuja, o undefined si no dibuja ninguna.
 const rama = async ($: Motor) => {
   const ui = await $.ui.mount(BANDA)
-  const texto = (await ui.find({ type: 'Text', text: /⎇/ }))?.text
+  const texto = (await ui.find({ type: 'Text', text: /rama:/ }))?.text
   await ui.unmount()
 
   return texto
@@ -68,7 +68,7 @@ test('en un repo de git la banda muestra la rama', async ($, on) => {
   await iniciar($, '/Users/ana/proy')
 
   expect(await ruta($)).toBe('~/proy')
-  expect(await rama($)).toBe(' ⎇ main')
+  expect(await rama($)).toBe(' rama:main')
 })
 
 test('fuera de un repo de git la banda no muestra rama', async ($, on) => {

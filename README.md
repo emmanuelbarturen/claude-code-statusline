@@ -66,7 +66,7 @@ Reinicia Claude Code y aparece. Para probarla sin abrir Claude Code:
 Un mod de Claude Code que dibuja una fila encima del prompt con la carpeta en la que trabaja la sesión y, a la derecha, la rama de git. Complementa la statusline: no la reemplaza.
 
 ```text
-📁 ~/Sites/mi-proyecto                                        ⎇ main
+📁 ~/Sites/mi-proyecto                                     rama:main
 ```
 
 Para instalarla, escribe esto en el prompt de Claude Code:
@@ -102,7 +102,9 @@ Otros ajustes rápidos:
 ## Limitaciones
 
 - La fila **USO** solo se llena en cuentas Pro o Max, que son las que reciben `rate_limits`. En otras cuentas muestra `USO: —`.
-- **SKILLS** cuenta los skills invocados mediante la herramienta `Skill`. Un skill que el usuario lanza tecleando `/nombre` no se distingue en el transcript de un comando interno, así que no se cuenta.
+- **SKILLS** cuenta skills distintos, entren por la herramienta `Skill` o tecleados como `/nombre`. Los comandos internos (`/clear`, `/model`) no cuentan.
+- **AGENTES** cuenta tipos distintos de subagente, no lanzamientos; uno lanzado sin tipo cuenta como `general-purpose`.
+- Si Claude Code todavía no escribió el transcript de la sesión, los dos contadores quedan en 0.
 
 ## Licencia
 
