@@ -61,6 +61,33 @@ Reinicia Claude Code y aparece. Para probarla sin abrir Claude Code:
 ./preview.sh
 ```
 
+## Banda sobre el prompt (opcional)
+
+Un mod de Claude Code que dibuja una fila encima del prompt con la carpeta en la que trabaja la sesión. Complementa la statusline: no la reemplaza.
+
+```text
+📁 ~/Sites/mi-proyecto
+```
+
+Para instalarla, escribe esto en el prompt de Claude Code:
+
+```text
+/plugin install statusline-banda --marketplace emmanuelbarturen/claude-code-statusline
+```
+
+Responde `y` para añadir el marketplace y elige el alcance.
+
+| Comando | Qué hace |
+|---|---|
+| `/banda off` | Oculta la banda. La elección se recuerda entre sesiones. |
+| `/banda on` | La vuelve a mostrar. |
+| `/banda` | Alterna entre oculta y visible. |
+
+- La ruta dentro de tu carpeta personal se abrevia con `~`; si no cabe, se corta por el inicio.
+- Sigue a la carpeta cuando cambia (`/cd` o un `cd` dentro de un turno).
+- Se dibuja en la terminal, la app de escritorio y el móvil; no en el panel de VS Code.
+- Probada en Claude Code 2.1.325. El código está en [`banda/`](banda/) y sus pruebas corren con `claude plugin test banda`.
+
 ## Personalización
 
 Todos los colores están al inicio de `statusline.sh`, en el bloque `# ---------- colores ----------`. Cada variable es una secuencia ANSI; las de 24 bits tienen la forma `\e[38;2;R;G;Bm`.

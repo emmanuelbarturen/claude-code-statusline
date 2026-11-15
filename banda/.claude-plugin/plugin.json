@@ -1,0 +1,6 @@
+{
+  "name": "statusline-banda",
+  "version": "0.1.0",
+  "description": "Banda sobre el prompt con la carpeta en la que trabaja la sesión.",
+  "types": "./types/index.d.ts"
+}
