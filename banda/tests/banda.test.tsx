@@ -26,7 +26,17 @@ const COMANDO = {
 } as const
 
 // Lo que el motor contesta bajo el mod. Va antes de la primera llamada a `$`: después ya no se admite.
-const motor = (on: On, guardado: Record<string, unknown> = {}) => {
+// `rama` es lo que git contesta; sin ella, git falla como fuera de un repo.
+const motor = (on: On, guardado: Record<string, unknown> = {}, rama?: string) => {
+  on('process.run', () => ({
+    value: {
+      exitCode: rama === undefined ? 128 : 0,
+      stdout: rama === undefined ? '' : `${rama}\n`,
+      stderr: '',
+      isStdoutTruncated: false,
+      isStderrTruncated: false,
+    },
+  }))
   mock.env(on, { HOME: '/Users/ana' })
   mock.store(on, guardado)
   on('command.register', () => ({ value: { command: 'banda' } }))
@@ -43,6 +53,31 @@ const ruta = async ($: Motor) => {
 
   return texto
 }
+
+// La rama que la banda dibuja, o undefined si no dibuja ninguna.
+const rama = async ($: Motor) => {
+  const ui = await $.ui.mount(BANDA)
+  const texto = (await ui.find({ type: 'Text', text: /⎇/ }))?.text
+  await ui.unmount()
+
+  return texto
+}
+
+test('en un repo de git la banda muestra la rama', async ($, on) => {
+  motor(on, {}, 'main')
+  await iniciar($, '/Users/ana/proy')
+
+  expect(await ruta($)).toBe('~/proy')
+  expect(await rama($)).toBe(' ⎇ main')
+})
+
+test('fuera de un repo de git la banda no muestra rama', async ($, on) => {
+  motor(on)
+  await iniciar($, '/Users/ana/proy')
+
+  expect(await ruta($)).toBe('~/proy')
+  expect(await rama($)).toBeUndefined()
+})
 
 test('la carpeta dentro de HOME se abrevia con ~', async ($, on) => {
   motor(on)

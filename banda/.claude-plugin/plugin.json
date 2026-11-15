@@ -1,6 +1,6 @@
 {
   "name": "statusline-banda",
-  "version": "0.1.0",
-  "description": "Banda sobre el prompt con la carpeta en la que trabaja la sesión.",
+  "version": "0.2.0",
+  "description": "Banda sobre el prompt con la carpeta en la que trabaja la sesión y su rama de git.",
   "types": "./types/index.d.ts"
 }
