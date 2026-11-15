@@ -10,13 +10,13 @@ const oculta = atom({ plugin: 'statusline-banda', key: 'oculta' } as const, fals
 const abreviar = (ruta: string, home: string | undefined) =>
   home && (ruta === home || ruta.startsWith(`${home}/`)) ? `~${ruta.slice(home.length)}` : ruta
 
-// Guarda la carpeta y su rama de git. La rama queda en null fuera de un repo, con HEAD suelto o sin git.
+// Guarda la carpeta y su rama de git: 'no git' fuera de un repo o sin git, 'sin rama' con HEAD suelto.
 const seguir = async ($: Pick<CoreEngineInterface, 'state' | 'process'>, cwd: string) => {
   await update($, carpeta, () => cwd)
   const actual = await $.process
     .run(['git', 'branch', '--show-current'], { cwd, timeoutMs: 2000 })
-    .then(r => (r.exitCode === 0 ? r.stdout.trim() || null : null))
-    .catch(() => null)
+    .then(r => (r.exitCode === 0 ? r.stdout.trim() || 'sin rama' : 'no git'))
+    .catch(() => 'no git')
   await update($, rama, () => actual)
 }
 

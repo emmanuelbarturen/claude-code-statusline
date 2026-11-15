@@ -54,7 +54,7 @@ const ruta = async ($: Motor) => {
   return texto
 }
 
-// La rama que la banda dibuja, o undefined si no dibuja ninguna.
+// El texto de rama que la banda dibuja, o undefined si la banda no se dibuja.
 const rama = async ($: Motor) => {
   const ui = await $.ui.mount(BANDA)
   const texto = (await ui.find({ type: 'Text', text: /rama:/ }))?.text
@@ -71,12 +71,19 @@ test('en un repo de git la banda muestra la rama', async ($, on) => {
   expect(await rama($)).toBe(' rama:main')
 })
 
-test('fuera de un repo de git la banda no muestra rama', async ($, on) => {
+test('fuera de un repo de git la banda dice rama:no git', async ($, on) => {
   motor(on)
   await iniciar($, '/Users/ana/proy')
 
   expect(await ruta($)).toBe('~/proy')
-  expect(await rama($)).toBeUndefined()
+  expect(await rama($)).toBe(' rama:no git')
+})
+
+test('con HEAD suelto la banda dice rama:sin rama', async ($, on) => {
+  motor(on, {}, '')
+  await iniciar($, '/Users/ana/proy')
+
+  expect(await rama($)).toBe(' rama:sin rama')
 })
 
 test('la carpeta dentro de HOME se abrevia con ~', async ($, on) => {

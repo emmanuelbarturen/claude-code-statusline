@@ -85,7 +85,7 @@ Responde `y` para añadir el marketplace y elige el alcance.
 
 - La ruta dentro de tu carpeta personal se abrevia con `~`; si no cabe, se corta por el inicio.
 - Sigue a la carpeta cuando cambia (`/cd` o un `cd` dentro de un turno).
-- La rama solo aparece si la carpeta está dentro de un repositorio de git. Se actualiza al iniciar la sesión, al cambiar de carpeta y al terminar cada turno.
+- Fuera de un repositorio de git dice `rama:no git`; con HEAD suelto, `rama:sin rama`. Se actualiza al iniciar la sesión, al cambiar de carpeta y al terminar cada turno.
 - Se dibuja en la terminal, la app de escritorio y el móvil; no en el panel de VS Code.
 - Probada en Claude Code 2.1.325. El código está en [`banda/`](banda/) y sus pruebas corren con `claude plugin test banda`.
 
